@@ -5,6 +5,7 @@ import pickle
 import struct
 import http.client, urllib.request, urllib.parse, urllib.error, base64
 import json
+import tkinter as tk
 class server:
     port = 50081
     addr = 0.0
@@ -12,6 +13,7 @@ class server:
     headers = ""
     params = ""
     newpath = r'X:\Masters of Applied computer Science\ConcHacks\FinalProject'
+    tk=""
     def __init__(self):
         soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         host = ""
@@ -32,7 +34,7 @@ class server:
             'returnFaceAttributes': 'emotion'
         })
 
-    def emotionDetection(self, path, type):
+    def emotionDetection(self, path):
         image_path = path
         image_data = open(image_path, "rb").read()
         print("Hello")
@@ -43,8 +45,6 @@ class server:
             data = response.read()
             fetch_data = json.loads(data.decode())
             final_data = fetch_data[0]['faceAttributes']['emotion']
-            if type == 1:
-                return final_data
             max_val = -1
             max_index = ""
             for list in final_data:
@@ -70,10 +70,10 @@ class server:
         while True:
             ret, frame = cap.read()
             i=i+1
-            if i == 3 or i == 20:
+            if i%50 == 0:
                 file = self.newpath + "/sample/imageimage" + str(i) + ".png"
                 cv2.imwrite(file, frame)
-                emotion = self.emotionDetection(file,0)
+                emotion = self.emotionDetection(file)
             data = pickle.dumps(frame)
             size = len(data)
             self.conn.sendall(struct.pack(">L", size) + data)
@@ -90,16 +90,63 @@ class server:
         cap.release()
         cv2.destroyAllWindows()
 
-    #Add Test
-    #Send result back
     #Database
     #Data visulization
     #Loop Set
+    def showchoice(self):
+        self.tk.destroy()
+
+    def questionnaire(self, person_emotion):
+        self.tk = tk.Tk()
+        v = tk.IntVar()
+        v.set(1)
+        emotions = [
+            ("Anger", 1),
+            ("Contempt", 2),
+            ("Disgust", 3),
+            ("Fear", 4),
+            ("Happiness", 5),
+            ("Neutral", 6),
+            ("Sadness",7),
+            ("Surprise", 8)
+        ]
+        tk.Label(self.tk,
+                 text="""What's the mood:""",
+                 justify=tk.LEFT,
+                 padx=20).pack()
+
+        for val, emotion in enumerate(emotions):
+            tk.Radiobutton(self.tk,
+                  text=emotion[0],
+                  indicatoron = 0,
+                  width = 20,
+                  padx = 20,
+                  variable=v,
+                  command = self.showchoice,
+                  value=val).pack(anchor=tk.W)
+
+        self.tk.mainloop()
+        testemotion = ""
+        for val, emotion in enumerate(emotions):
+            if val == v.get():
+                testemotion = emotion[0]
+                break
+
+        if testemotion.lower() == person_emotion.lower():
+            return 1
+        else:
+            return 0
+
+
     def learning(self):
         data = b""
         payload_size = struct.calcsize(">L")
         i = 0
         while True:
+            emotion_response = []
+            emotion_response.append("useless")
+            emotion_response.append("")
+            emotion_response.append(2)
             i = i + 1
             while len(data) < payload_size:
                 data += self.conn.recv(4096)
@@ -116,12 +163,17 @@ class server:
             if i == 50:
                 file = self.newpath + "/sample/testing" + str(i) + ".png"
                 cv2.imwrite(file, frame)
-                emotion = self.emotionDetection(file,1)
-                print(emotion)
+                #emotion = self.emotionDetection(file)
+                cv2.destroyAllWindows()
+                emotion = "happiness"
+                response = self.questionnaire(emotion)
+                emotion_response = []
+                emotion_response.append("emotion")
+                emotion_response.append(emotion)
+                emotion_response.append(response)
 
-
-            useless = pickle.dumps(1)
-            self.conn.sendto(useless, self.addr)
+            emotion_data = pickle.dumps(emotion_response)
+            self.conn.sendto(emotion_data, self.addr)
 
             cv2.namedWindow('Learning Patient', cv2.WINDOW_NORMAL)
             cv2.imshow('Learning Patient', frame)

@@ -11,6 +11,7 @@ class client:
     host = "127.0.0.1"
     soc = ""
     top = ""
+    newpath = r'X:\Masters of Applied computer Science\ConcHacks\FinalProject'
     def __init__(self):
         self.addr = (self.host, self.port)
         self.soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -69,7 +70,12 @@ class client:
             cv2.namedWindow('Learning Doctor', cv2.WINDOW_NORMAL)
             cv2.imshow('Learning Doctor', frame)
             self.soc.sendall(struct.pack(">L", size) + data)
-            (useless, addr) = self.soc.recvfrom(1024)
+            (emotion_data, addr) = self.soc.recvfrom(1024)
+            emotions = pickle.loads(emotion_data)
+            if emotions[0] == "emotion":
+                #Store data in file
+                print(emotions[1])
+                print(emotions[2])
 
             wait_key = cv2.waitKey(1) % 0x100
 
@@ -84,9 +90,6 @@ class client:
         self.top.geometry('600x300')
         frame = tk.Frame(self.top, width=50, height=50)
         frame.place(x=100, y=10)
-        """background_image = tk.PhotoImage('X:\Sagar.jpg')
-        background_label = tk.Label(self.top, image=background_image)
-        background_label.place(x=0, y=0, relwidth=100, relheight=100)"""
         w1 = tk.Label(frame, text="Choose your option to Start.", font=("Helvetica", 16),
                       fg="BLACK")
         w1.pack(fill=X, pady=10)
@@ -97,8 +100,70 @@ class client:
         B1 = tk.Button(frame, text="Start Learning", command= self.learning, bd=1, width=30, pady=10, padx= 10, bg="GREEN")
         B1.pack(fill=X, pady=10)
         self.top.mainloop()
+#Add feature of Check Users
+    def createDirectory(self,type,input, input2):
+        print("Fuck")
+
+    def createUser(self, type):
+        self.top.destroy()
+        if type == 1:
+            self.top = tk.Tk()
+            self.top.title("ASGM Software")
+            self.top.geometry('600x300')
+            #frame = tk.Frame(self.top, width=50, height=50)
+            #frame.place(x=100, y=10)
+            Label(self.top, text="Add new user.", font=("Helvetica", 16), fg="BLACK").grid(row=0, column = 2)
+            Label(self.top, text="Name" , font=("Helvetica", 16), fg="BLACK").grid(row=1)
+            e1 = Entry(self.top)
+            Label(self.top, text="Age" , font=("Helvetica", 16), fg="BLACK").grid(row=2)
+            e2 = Entry(self.top)
+
+            e1.grid(row=1, column=2)
+            e2.grid(row=2, column=2)
+            Button(self.top, text="Submit", command=lambda: self.createDirectory(1,e1.get(),e2.get()), bd=1, width=30, pady=10,
+                           padx=10, bg="GREEN").grid(row=3, column = 2)
+            self.top.mainloop()
+        elif type == 2:
+            self.top = tk.Tk()
+            self.top.title("ASGM Software")
+            self.top.geometry('600x300')
+            frame = tk.Frame(self.top, width=50, height=50)
+            frame.place(x=100, y=10)
+            w1 = tk.Label(frame, text="Add new user.", font=("Helvetica", 16),
+                          fg="BLACK")
+            w1.pack(fill=X, pady=10)
+            var = StringVar(frame)
+            #var.set("one")
+            users_data = []
+            file_path_users = self.newpath + "/users/users.txt"
+            with open(file_path_users) as f:
+                lines = f.readlines()
+                users_data.append(str(lines))
+
+            option = tk.OptionMenu(frame, var, *users_data)
+            option.pack()
+            B1 = tk.Button(frame, text="Submit", command=lambda: self.createDirectory(2, var.get(), ""), bd=1, width=30,
+                           pady=10,
+                           padx=10, bg="GREEN")
+            B1.pack(fill=X, pady=10)
+            self.top.mainloop()
+
+    def choose_user(self):
+        self.top = tk.Tk()
+        self.top.title("ASGM Software")
+        self.top.geometry('600x300')
+        frame = tk.Frame(self.top, width=50, height=50)
+        frame.place(x=100, y=10)
+        w1 = tk.Label(frame, text="Choose your option to Start.", font=("Helvetica", 16),
+                      fg="BLACK")
+        w1.pack(fill=X, pady=10)
+        B = tk.Button(frame, text="Add new patient", command=lambda: self.createUser(1), bd=1, width=30, pady=10, padx=10, bg="BLUE")
+        B.pack(fill=X, pady=10)
+        B1 = tk.Button(frame, text="Already Existing", command=lambda: self.createUser(2), bd=1, width=30, pady=10, padx=10, bg="GREEN")
+        B1.pack(fill=X, pady=10)
+        self.top.mainloop()
 
 if __name__ == '__main__':
     client = client()
-    client.start()
+    client.choose_user()
 
