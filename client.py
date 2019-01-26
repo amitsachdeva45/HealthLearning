@@ -4,7 +4,7 @@ import pickle
 import struct
 import tkinter as tk
 from tkinter import *
-
+import os
 class client:
     port = 50081
     addr = 0.0
@@ -54,7 +54,7 @@ class client:
                 break
         cv2.destroyAllWindows()
 
-    def learning(self):
+    def learning(self, folder_path):
         option = pickle.dumps(0)
         self.soc.sendto(option, self.addr)
         self.top.destroy()
@@ -62,6 +62,15 @@ class client:
         cap.set(3, 500)
         cap.set(4, 260)
         i = 0
+        j=0
+        with open(folder_path + "/file_name.txt") as f:
+            for line in f:
+                j = j + 1
+        file = open(folder_path + "/file_name.txt", "a+")
+        file.write("test" + str(j+1) + ".txt"+"\n")
+        file.close()
+
+
         while True:
             ret, frame = cap.read()
             i = i + 1
@@ -73,9 +82,11 @@ class client:
             (emotion_data, addr) = self.soc.recvfrom(1024)
             emotions = pickle.loads(emotion_data)
             if emotions[0] == "emotion":
-                #Store data in file
                 print(emotions[1])
                 print(emotions[2])
+                file = open(folder_path + "/test" + str(j + 1) + ".txt", "a+")
+                file.write(str(emotions[1]) + " " +str(emotions[2])+"\n")
+                file.close()
 
             wait_key = cv2.waitKey(1) % 0x100
 
@@ -84,9 +95,10 @@ class client:
         cap.release()
         cv2.destroyAllWindows()
 
-    def start(self):
+
+    def start(self, folder_path, user_folder):
         self.top = tk.Tk()
-        self.top.title("ASGM Software")
+        self.top.title(user_folder)
         self.top.geometry('600x300')
         frame = tk.Frame(self.top, width=50, height=50)
         frame.place(x=100, y=10)
@@ -97,12 +109,31 @@ class client:
         w2.pack(fill=X, pady=10)
         B = tk.Button(frame, text="Start Testing", command= self.testing, bd=1, width=30, pady=10, padx = 10,  bg="BLUE")
         B.pack(fill=X, pady=10)
-        B1 = tk.Button(frame, text="Start Learning", command= self.learning, bd=1, width=30, pady=10, padx= 10, bg="GREEN")
+        B1 = tk.Button(frame, text="Start Learning", command=lambda: self.learning(folder_path), bd=1, width=30, pady=10, padx= 10, bg="GREEN")
         B1.pack(fill=X, pady=10)
         self.top.mainloop()
-#Add feature of Check Users
+
+
     def createDirectory(self,type,input, input2):
-        print("Fuck")
+        self.top.destroy()
+        file_path = self.newpath + "/users/"
+        if type == 1:
+            i=0
+            with open(file_path + "users.txt") as f:
+                for line in f:
+                    i=i+1
+            folder_name = str(1000 + i) + input[:2]+ str(input2)
+            if not os.path.exists(file_path + folder_name):
+                os.makedirs(file_path + folder_name)
+            file = open(file_path + "users.txt", "a+")
+            file.write(folder_name + " "+ input + " "+ input2 + "\n")
+            file.close()
+            file = open(file_path + folder_name + "/file_name.txt", "w+")
+            file.close()
+            self.start(file_path + folder_name, folder_name)
+        elif type == 2:
+            folder_name = input.split(" ")
+            self.start(file_path + folder_name[0], folder_name[0])
 
     def createUser(self, type):
         self.top.destroy()
@@ -122,6 +153,7 @@ class client:
             e2.grid(row=2, column=2)
             Button(self.top, text="Submit", command=lambda: self.createDirectory(1,e1.get(),e2.get()), bd=1, width=30, pady=10,
                            padx=10, bg="GREEN").grid(row=3, column = 2)
+            Button(self.top, text="Back", command=lambda: self.choose_user(2), bd=1, width=30, pady=10,padx=10, bg="RED").grid(row=4, column=2)
             self.top.mainloop()
         elif type == 2:
             self.top = tk.Tk()
@@ -137,18 +169,26 @@ class client:
             users_data = []
             file_path_users = self.newpath + "/users/users.txt"
             with open(file_path_users) as f:
-                lines = f.readlines()
-                users_data.append(str(lines))
-
+                lines = f.read().splitlines()
+            i=0
+            while i<len(lines):
+                users_data.append(lines[i])
+                i=i+1
             option = tk.OptionMenu(frame, var, *users_data)
             option.pack()
             B1 = tk.Button(frame, text="Submit", command=lambda: self.createDirectory(2, var.get(), ""), bd=1, width=30,
                            pady=10,
                            padx=10, bg="GREEN")
             B1.pack(fill=X, pady=10)
+            B2 = tk.Button(frame, text="Back", command=lambda: self.choose_user(2), bd=1, width=30,
+                           pady=10,
+                           padx=10, bg="RED")
+            B2.pack(fill=X, pady=10)
             self.top.mainloop()
 
-    def choose_user(self):
+    def choose_user(self, type):
+        if type == 2:
+            self.top.destroy()
         self.top = tk.Tk()
         self.top.title("ASGM Software")
         self.top.geometry('600x300')
@@ -165,5 +205,5 @@ class client:
 
 if __name__ == '__main__':
     client = client()
-    client.choose_user()
+    client.choose_user(1)
 

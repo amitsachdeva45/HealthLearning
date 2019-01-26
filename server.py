@@ -55,10 +55,8 @@ class server:
             return max_index
         except Exception as e:
             return "neutral"
-
-    #Add Random Photos inside this
-    #Show Emotion on Tkinter
-    #Set emotion detection loop
+    #Add random Photos
+    #Show Emotions on Video
     def testing(self):
         if not os.path.exists(self.newpath+"\sample"):
             os.makedirs(self.newpath+"\sample")
@@ -90,9 +88,6 @@ class server:
         cap.release()
         cv2.destroyAllWindows()
 
-    #Database
-    #Data visulization
-    #Loop Set
     def showchoice(self):
         self.tk.destroy()
 
@@ -163,9 +158,8 @@ class server:
             if i == 50:
                 file = self.newpath + "/sample/testing" + str(i) + ".png"
                 cv2.imwrite(file, frame)
-                #emotion = self.emotionDetection(file)
+                emotion = self.emotionDetection(file)
                 cv2.destroyAllWindows()
-                emotion = "happiness"
                 response = self.questionnaire(emotion)
                 emotion_response = []
                 emotion_response.append("emotion")
