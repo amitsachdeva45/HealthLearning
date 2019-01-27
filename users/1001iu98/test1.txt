@@ -1,0 +1,10 @@
+happiness 1
+surprise 0
+surprise 0
+happiness 1
+sad 1
+happiness 0
+sad 0
+happiness 0
+surprise 1
+happiness 1

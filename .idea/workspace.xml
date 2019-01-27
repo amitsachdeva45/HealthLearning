@@ -1,7 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="17e22843-540c-48c6-be2e-2df29a5d4d06" name="Default Changelist" comment="" />
+    <list default="true" id="17e22843-540c-48c6-be2e-2df29a5d4d06" name="Default Changelist" comment="Add Users Database">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testing/testing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestingMicrosoftAzure/microsoftAzure.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestingMicrosoftAzure/testing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/amit.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/amitamit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f11.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f12.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f13.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f14.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f15.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f16.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f17.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f18.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f19.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f20.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f21.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f22.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f23.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f24.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f25.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/funny/f9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/P3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/P4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/P5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/P6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/P7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/P8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/P9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/p1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/p10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/p11.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/p12.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/p13.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/p14.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/p15.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/p16.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/p17.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/p18.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/p19.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/p19.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/p2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/p20.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sad/p21.jpg" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -9,12 +63,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="60" column="31" selection-start-line="60" selection-start-column="31" selection-end-line="60" selection-end-column="31" />
+            <state relative-caret-position="300">
+              <caret line="180" column="24" selection-start-line="180" selection-start-column="24" selection-end-line="180" selection-end-column="24" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -25,8 +79,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1122">
-              <caret line="71" column="38" selection-start-line="71" selection-start-column="38" selection-end-line="71" selection-end-column="38" />
+            <state relative-caret-position="124">
+              <caret line="89" column="40" selection-start-line="89" selection-start-column="40" selection-end-line="89" selection-end-column="40" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -43,6 +97,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -52,11 +109,12 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="610" />
+    <option name="y" value="40" />
     <option name="width" value="989" />
     <option name="height" value="820" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -87,6 +145,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -160,23 +219,44 @@
       <option name="presentableId" value="Default" />
       <updated>1548117124255</updated>
     </task>
+    <task id="LOCAL-00001" summary="Add UI in code">
+      <created>1548538798103</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1548538798103</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add Users Database">
+      <created>1548547118901</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1548547118901</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Finalize Code">
+      <created>1548571626427</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1548571626427</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2148289" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.36069986" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3230148" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="7" visible="true" weight="0.32974428" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.30417228" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32974428" />
@@ -204,21 +284,67 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout-to-restore>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add UI in code" />
+    <MESSAGE value="Add Users Database" />
+    <MESSAGE value="Finalize Code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finalize Code" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server.py">
+    <entry file="file://$PROJECT_DIR$/client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="60" column="31" selection-start-line="60" selection-start-column="31" selection-end-line="60" selection-end-column="31" />
+        <state relative-caret-position="124">
+          <caret line="89" column="40" selection-start-line="89" selection-start-column="40" selection-end-line="89" selection-end-column="40" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client.py">
+    <entry file="file://$PROJECT_DIR$/server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="71" column="38" selection-start-line="71" selection-start-column="38" selection-end-line="71" selection-end-column="38" />
+        <state relative-caret-position="300">
+          <caret line="180" column="24" selection-start-line="180" selection-start-column="24" selection-end-line="180" selection-end-column="24" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>

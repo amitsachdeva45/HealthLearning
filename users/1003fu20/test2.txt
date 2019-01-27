@@ -1,0 +1,4 @@
+happiness 1
+neutral 1
+surprise 1
+happiness 1

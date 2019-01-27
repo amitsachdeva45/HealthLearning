@@ -1,0 +1,3 @@
+happiness h 20
+sad s 20
+surprise su 10
