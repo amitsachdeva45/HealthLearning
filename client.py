@@ -5,6 +5,8 @@ import struct
 import tkinter as tk
 from tkinter import *
 import os
+import matplotlib.pyplot as plt
+import numpy as np
 class client:
     port = 50081
     addr = 0.0
@@ -17,7 +19,7 @@ class client:
         self.soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.soc.connect(self.addr)
 
-    def testing(self):
+    def testing(self, folder_path):
         option = pickle.dumps(1)
         self.soc.sendto(option, self.addr)
         self.top.destroy()
@@ -42,7 +44,11 @@ class client:
             self.soc.sendto(useless, self.addr)
 
             (emotion, addr) = self.soc.recvfrom(1024)
-            print("Emotion",pickle.loads(emotion))
+            emotion_list = pickle.loads(emotion)
+            if i%100 == 0:
+                file = open(folder_path + "/testing.txt", "a+")
+                file.write(str(emotion_list[0]) + " " + str(emotion_list[1]) + "\n")
+                file.close()
 
             frame = pickle.loads(frame_data, fix_imports=True, encoding="bytes")
 
@@ -82,8 +88,6 @@ class client:
             (emotion_data, addr) = self.soc.recvfrom(1024)
             emotions = pickle.loads(emotion_data)
             if emotions[0] == "emotion":
-                print(emotions[1])
-                print(emotions[2])
                 file = open(folder_path + "/test" + str(j + 1) + ".txt", "a+")
                 file.write(str(emotions[1]) + " " +str(emotions[2])+"\n")
                 file.close()
@@ -107,7 +111,7 @@ class client:
         w1.pack(fill=X, pady=10)
         w2 = tk.Label(frame, text="Not to move Your Face. Sit in proper LIGHT", font=("Helvetica", 16), fg="BLACK")
         w2.pack(fill=X, pady=10)
-        B = tk.Button(frame, text="Start Testing", command= self.testing, bd=1, width=30, pady=10, padx = 10,  bg="BLUE")
+        B = tk.Button(frame, text="Start Testing", command=lambda: self.testing(folder_path), bd=1, width=30, pady=10, padx = 10,  bg="BLUE")
         B.pack(fill=X, pady=10)
         B1 = tk.Button(frame, text="Start Learning", command=lambda: self.learning(folder_path), bd=1, width=30, pady=10, padx= 10, bg="GREEN")
         B1.pack(fill=X, pady=10)
@@ -135,6 +139,63 @@ class client:
             folder_name = input.split(" ")
             self.start(file_path + folder_name[0], folder_name[0])
 
+    def showGraph(self, emotion_array, emotion_array_percentage):
+        index = np.arange(len(emotion_array))
+        plt.bar(index, emotion_array_percentage)
+        plt.xlabel('Emotions', fontsize=10)
+        plt.ylabel('Response Rate', fontsize=10)
+        plt.xticks(index, emotion_array, fontsize=5, rotation=30)
+        plt.title('Patients response rate over the period.')
+        plt.show()
+    def startAnalyzing(self, users):
+        folder_path = self.newpath +"/users/"+users
+        file_exists = os.path.isfile(folder_path+"/file_name.txt")
+        corr_dict = dict()
+        total_dict = dict()
+        if file_exists:
+            with open(folder_path+"/file_name.txt") as f:
+                for line in f:
+                    with open(folder_path +"/" + line.replace("\n","")) as f1:
+                        for line1 in f1:
+                            line_split = line1.replace("\n","").split(" ")
+                            if line_split[0] in corr_dict:
+                                if line_split[1] == '1':
+                                    corr_dict[line_split[0]] = corr_dict[line_split[0]] + 1
+                                total_dict[line_split[0]] = total_dict[line_split[0]] + 1
+                            else:
+                                if line_split[1] == '1':
+                                    corr_dict[line_split[0]] = 1
+                                else:
+                                    corr_dict[line_split[0]] = 0
+                                total_dict[line_split[0]] =  1
+        else:
+            self.choose_user(1)
+
+        test_exists = os.path.isfile(folder_path + "/testing.txt")
+        if test_exists:
+            with open(folder_path+"/testing.txt") as f:
+                for line in f:
+                    line_split = line.replace("\n","").split(" ")
+                    if line_split[0] in corr_dict:
+                        if line_split[0] == line_split[1]:
+                            corr_dict[line_split[0]] = corr_dict[line_split[0]] + 1
+                        total_dict[line_split[0]] = total_dict[line_split[0]] + 1
+                    else:
+                        if line_split[1] == line_split[0]:
+                            corr_dict[line_split[0]] = 1
+                        else:
+                            corr_dict[line_split[0]] = 0
+                        total_dict[line_split[0]] = 1
+
+        i=0
+        emotion_array_data = []
+        emotion_percentage_data = []
+        for key in total_dict:
+            emotion_array_data.append(key)
+            emotion_percentage_data.append(float(corr_dict[key])/total_dict[key])
+
+        self.showGraph(emotion_array_data, emotion_percentage_data)
+
     def createUser(self, type):
         self.top.destroy()
         if type == 1:
@@ -161,11 +222,11 @@ class client:
             self.top.geometry('600x300')
             frame = tk.Frame(self.top, width=50, height=50)
             frame.place(x=100, y=10)
-            w1 = tk.Label(frame, text="Add new user.", font=("Helvetica", 16),
+            w1 = tk.Label(frame, text="Select existing users.", font=("Helvetica", 16),
                           fg="BLACK")
             w1.pack(fill=X, pady=10)
             var = StringVar(frame)
-            #var.set("one")
+
             users_data = []
             file_path_users = self.newpath + "/users/users.txt"
             with open(file_path_users) as f:
@@ -174,16 +235,22 @@ class client:
             while i<len(lines):
                 users_data.append(lines[i])
                 i=i+1
+            var.set(lines[0])
             option = tk.OptionMenu(frame, var, *users_data)
             option.pack()
-            B1 = tk.Button(frame, text="Submit", command=lambda: self.createDirectory(2, var.get(), ""), bd=1, width=30,
+            B1 = tk.Button(frame, text="Start Learning", command=lambda: self.createDirectory(2, var.get(), ""), bd=1, width=30,
                            pady=10,
                            padx=10, bg="GREEN")
             B1.pack(fill=X, pady=10)
-            B2 = tk.Button(frame, text="Back", command=lambda: self.choose_user(2), bd=1, width=30,
+            B2 = tk.Button(frame, text="Start Analyzing Users", command=lambda: self.startAnalyzing(var.get().split(" ")[0]), bd=1,
+                           width=30,
+                           pady=10,
+                           padx=10, bg="YELLOW")
+            B2.pack(fill=X, pady=10)
+            B3 = tk.Button(frame, text="Back", command=lambda: self.choose_user(2), bd=1, width=30,
                            pady=10,
                            padx=10, bg="RED")
-            B2.pack(fill=X, pady=10)
+            B3.pack(fill=X, pady=10)
             self.top.mainloop()
 
     def choose_user(self, type):

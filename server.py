@@ -6,6 +6,7 @@ import struct
 import http.client, urllib.request, urllib.parse, urllib.error, base64
 import json
 import tkinter as tk
+import random
 class server:
     port = 50081
     addr = 0.0
@@ -37,7 +38,6 @@ class server:
     def emotionDetection(self, path):
         image_path = path
         image_data = open(image_path, "rb").read()
-        print("Hello")
         try:
             conn = http.client.HTTPSConnection('canadacentral.api.cognitive.microsoft.com')
             conn.request("POST", "/face/v1.0/detect?%s" % self.params, image_data, self.headers)
@@ -55,7 +55,7 @@ class server:
             return max_index
         except Exception as e:
             return "neutral"
-    #Add random Photos
+
     #Show Emotions on Video
     def testing(self):
         if not os.path.exists(self.newpath+"\sample"):
@@ -65,8 +65,30 @@ class server:
         cap.set(4, 260)
         i=0
         emotion="neutral"
+        expected_emotion = ""
+        folders = []
+        name_of_file = []
+        number_of_images = []
+        emotion_array = []
+        with open(self.newpath + "/emotionsDataSet.txt") as f:
+            for line in f:
+                temp = line.split(" ")
+                folders.append(temp[0])
+                name_of_file.append(temp[1])
+                number_of_images.append(temp[2])
+
+        i = 0
         while True:
+            emotion_array = []
             ret, frame = cap.read()
+            if i % 100 == 0:
+                index = random.randint(0, len(folders)-1)
+                expected_emotion = folders[index]
+                image_value = random.randint(1,int(number_of_images[index]))
+                image_path = self.newpath +"/" + folders[index] + "/"+ name_of_file[index] + str(image_value) + ".jpg"
+                testing_image = cv2.imread(image_path)
+                cv2.namedWindow('Testing Image', cv2.WINDOW_NORMAL)
+                cv2.imshow('Testing Image', testing_image)
             i=i+1
             if i%50 == 0:
                 file = self.newpath + "/sample/imageimage" + str(i) + ".png"
@@ -77,8 +99,9 @@ class server:
             self.conn.sendall(struct.pack(">L", size) + data)
 
             (useless, addr) = self.conn.recvfrom(1024)
-
-            send_emotion = pickle.dumps(emotion)
+            emotion_array.append(emotion)
+            emotion_array.append(expected_emotion)
+            send_emotion = pickle.dumps(emotion_array)
             self.conn.sendto(send_emotion, self.addr)
 
             wait_key = cv2.waitKey(1) % 0x100
@@ -155,7 +178,7 @@ class server:
             data = data[msg_size:]
 
             frame = pickle.loads(frame_data, fix_imports=True, encoding="bytes")
-            if i == 50:
+            if i%50 == 0:
                 file = self.newpath + "/sample/testing" + str(i) + ".png"
                 cv2.imwrite(file, frame)
                 emotion = self.emotionDetection(file)
