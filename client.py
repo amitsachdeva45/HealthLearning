@@ -115,6 +115,9 @@ class client:
         B.pack(fill=X, pady=10)
         B1 = tk.Button(frame, text="Start Learning", command=lambda: self.learning(folder_path), bd=1, width=30, pady=10, padx= 10, bg="GREEN")
         B1.pack(fill=X, pady=10)
+        B2 = tk.Button(frame, text="Back", command=lambda: self.choose_user(2), bd=1, width=30,
+                       pady=10, padx=10, bg="RED")
+        B2.pack(fill=X, pady=10)
         self.top.mainloop()
 
 
