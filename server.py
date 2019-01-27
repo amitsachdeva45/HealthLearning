@@ -178,7 +178,7 @@ class server:
             data = data[msg_size:]
 
             frame = pickle.loads(frame_data, fix_imports=True, encoding="bytes")
-            if i%50 == 0:
+            if i%100 == 0:
                 file = self.newpath + "/sample/testing" + str(i) + ".png"
                 cv2.imwrite(file, frame)
                 emotion = self.emotionDetection(file)
